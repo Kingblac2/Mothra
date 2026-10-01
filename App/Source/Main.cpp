@@ -1,10 +1,11 @@
 #include "Core/Application.h"
-
+#include <MothraCore.h>
 #include "AppLayer.h"
 #include "OverlayLayer.h"
 
 int main()
 {
+	Mothra::MothraCore* Moth = new Mothra::MothraCore();
 	Core::ApplicationSpecification appSpec;
 	appSpec.Name = "Architecture";
 	appSpec.WindowSpec.Width = 1920;

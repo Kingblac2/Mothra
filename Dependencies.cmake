@@ -1,3 +1,46 @@
+#function(mothra_set_dependency_folder root_dir folder_name)
+#
+#    get_property(all_targets DIRECTORY PROPERTY BUILDSYSTEM_TARGETS)
+#
+#    foreach(target IN LISTS all_targets)
+#
+#        if (NOT TARGET ${target})
+#            continue()
+#        endif()
+#
+#        get_target_property(target_source_dir
+#            ${target}
+#            SOURCE_DIR
+#        )
+#
+#        if (target_source_dir)
+#
+#            file(REAL_PATH
+#                "${target_source_dir}"
+#                target_source_dir_real
+#            )
+#
+#            file(REAL_PATH
+#                "${root_dir}"
+#                root_dir_real
+#            )
+#
+#            if (target_source_dir_real MATCHES
+#                "^${root_dir_real}(/|\\\\)"
+#            )
+#                set_target_properties(${target}
+#                    PROPERTIES
+#                        FOLDER "${folder_name}"
+#                )
+#            endif()
+#
+#        endif()
+#
+#    endforeach()
+#
+#endfunction()
+
+
 #
 # Dependencies
 #
@@ -39,19 +82,185 @@ if(NOT glad_POPULATED)
 endif()
 set_target_properties(glad PROPERTIES FOLDER "Dependencies")
 
-# GLM
-find_package(glm 1.0.1 QUIET)
-if (NOT glm_FOUND)
+
+
+
+
+#
+# Vulkan
+#
+
+find_package(Vulkan REQUIRED)
+
+
+
+
+#
+# Volk
+#
+
+find_package(Volk QUIET)
+
+if (NOT Volk_FOUND)
+
     FetchContent_Declare(
-            glm
-            DOWNLOAD_EXTRACT_TIMESTAMP OFF
-            URL https://github.com/g-truc/glm/archive/refs/tags/1.0.1.zip
+        volk
+        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+        URL https://github.com/zeux/volk/archive/refs/tags/1.4.304.zip
     )
-    FetchContent_GetProperties(glm)
-    if (NOT glm_POPULATED)
+
+    FetchContent_GetProperties(volk)
+
+    if (NOT volk_POPULATED)
+
         set(FETCHCONTENT_QUIET NO)
-        FetchContent_Populate(glm)
-        add_subdirectory(${glm_SOURCE_DIR} ${glm_BINARY_DIR})
+
+        FetchContent_Populate(volk)
+
+        add_subdirectory(
+            ${volk_SOURCE_DIR}
+            ${volk_BINARY_DIR}
+            EXCLUDE_FROM_ALL
+        )
+
     endif()
+
 endif()
-set_target_properties(glm PROPERTIES FOLDER "Dependencies")
+
+
+#
+# VMA - Vulkan Memory Allocator
+#
+
+find_package(VulkanMemoryAllocator QUIET)
+
+if (NOT VulkanMemoryAllocator_FOUND)
+
+    FetchContent_Declare(
+        vma
+        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+        URL https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/archive/refs/tags/v3.3.0.zip
+    )
+
+    FetchContent_GetProperties(vma)
+
+    if (NOT vma_POPULATED)
+
+        set(FETCHCONTENT_QUIET NO)
+
+        FetchContent_Populate(vma)
+
+        add_subdirectory(
+            ${vma_SOURCE_DIR}
+            ${vma_BINARY_DIR}
+            EXCLUDE_FROM_ALL
+        )
+
+    endif()
+
+endif()
+
+
+#
+# GLM
+#
+
+find_package(glm 1.0.1 QUIET)
+
+if (NOT glm_FOUND)
+
+    FetchContent_Declare(
+        glm
+        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+        URL https://github.com/g-truc/glm/archive/refs/tags/1.0.1.zip
+    )
+
+    FetchContent_GetProperties(glm)
+
+    if (NOT glm_POPULATED)
+
+        set(FETCHCONTENT_QUIET NO)
+
+        FetchContent_Populate(glm)
+
+        add_subdirectory(
+            ${glm_SOURCE_DIR}
+            ${glm_BINARY_DIR}
+            EXCLUDE_FROM_ALL
+        )
+
+    endif()
+
+endif()
+
+set_target_properties(glm PROPERTIES
+    FOLDER "Dependencies"
+)
+
+
+#
+# tinyobjloader
+#
+
+find_package(tinyobjloader QUIET)
+
+if (NOT tinyobjloader_FOUND)
+
+    FetchContent_Declare(
+        tinyobjloader
+        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+        URL https://github.com/tinyobjloader/tinyobjloader/archive/refs/tags/v2.0.0rc13.zip
+    )
+
+    FetchContent_GetProperties(tinyobjloader)
+
+    if (NOT tinyobjloader_POPULATED)
+
+        set(FETCHCONTENT_QUIET NO)
+
+        FetchContent_Populate(tinyobjloader)
+
+        add_subdirectory(
+            ${tinyobjloader_SOURCE_DIR}
+            ${tinyobjloader_BINARY_DIR}
+            EXCLUDE_FROM_ALL
+        )
+
+    endif()
+
+endif()
+
+
+#
+# KTX-Software
+#
+
+#find_package(KTX QUIET)
+
+#if (NOT KTX_FOUND)
+
+#    FetchContent_Declare(
+#        ktx
+#        URL https://github.com/KhronosGroup/KTX-Software/archive/refs/tags/v4.4.0.zip
+#        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+#    )
+
+#     FetchContent_MakeAvailable(ktx) 
+#     FetchContent_GetProperties(ktx)
+
+	
+
+#   if (NOT ktx_POPULATED)
+#       FetchContent_Populate(ktx)	
+#  endif()
+#		mothra_set_dependency_folder(
+#    	 "${ktx_SOURCE_DIR}"
+#    	 "Dependencies/KTX"
+#	)
+	
+	
+#endif()
+
+
+
+

@@ -23,7 +23,7 @@ add_compile_definitions(
     GLFW_INCLUDE_NONE
 )
 
-target_link_libraries(App Core)
+target_link_libraries(App Core Mothra-Core)
 
 target_include_directories(App PRIVATE Source)
 
