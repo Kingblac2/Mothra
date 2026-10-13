@@ -99,33 +99,33 @@ find_package(Vulkan REQUIRED)
 # Volk
 #
 
-find_package(Volk QUIET)
-
-if (NOT Volk_FOUND)
-
-    FetchContent_Declare(
-        volk
-        DOWNLOAD_EXTRACT_TIMESTAMP OFF
-        URL https://github.com/zeux/volk/archive/refs/tags/1.4.304.zip
-    )
-
-    FetchContent_GetProperties(volk)
-
-    if (NOT volk_POPULATED)
-
-        set(FETCHCONTENT_QUIET NO)
-
-        FetchContent_Populate(volk)
-
-        add_subdirectory(
-            ${volk_SOURCE_DIR}
-            ${volk_BINARY_DIR}
-            EXCLUDE_FROM_ALL
-        )
-
-    endif()
-
-endif()
+#find_package(Volk QUIET)
+#
+#if (NOT Volk_FOUND)
+#
+#    FetchContent_Declare(
+#        volk
+#        DOWNLOAD_EXTRACT_TIMESTAMP OFF
+#        URL https://github.com/zeux/volk/archive/refs/tags/1.4.304.zip
+#    )
+#
+#    FetchContent_GetProperties(volk)
+#
+#    if (NOT volk_POPULATED)
+#
+#        set(FETCHCONTENT_QUIET NO)
+#
+#        FetchContent_Populate(volk)
+#
+#        add_subdirectory(
+#            ${volk_SOURCE_DIR}
+#            ${volk_BINARY_DIR}
+#            EXCLUDE_FROM_ALL
+#        )
+#
+#    endif()
+#
+#endif()
 
 
 #

@@ -5,7 +5,7 @@
 
 int main()
 {
-	Mothra::MothraCore* Moth = new Mothra::MothraCore();
+
 	Core::ApplicationSpecification appSpec;
 	appSpec.Name = "Architecture";
 	appSpec.WindowSpec.Width = 1920;
@@ -14,5 +14,6 @@ int main()
 	Core::Application application(appSpec);
 	application.PushLayer<AppLayer>();
 	application.PushLayer<OverlayLayer>();
+	application.PushLayer<MothraLayer>();
 	application.Run();
 }

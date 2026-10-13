@@ -1,17 +1,23 @@
 #pragma once
-#define VK_USE_PLATFORM_WIN32_KHR
-#define VK_NO_PROTOTYPES
-#include"Volk/volk.h"
-#include<vulkan/vulkan.hpp>
 
-namespace Mothra
-{
+#include <Core/Layer.h>
+#include <Core/InputEvents.h>
+#include <Core/WindowEvents.h>
 
-class MothraCore
+
+class MothraLayer : public Core::Layer
 {
 public:
-    MothraCore();
-    ~MothraCore() = default;
-};
+    MothraLayer();
+    virtual ~MothraLayer();
 
-}
+	virtual void OnEvent(Core::Event& event) override;
+
+	virtual void OnUpdate(float ts) override;
+	virtual void OnRender() override;
+private:
+	bool OnMouseButtonPressed(Core::MouseButtonPressedEvent& event);
+	bool OnMouseMoved(Core::MouseMovedEvent& event);
+	bool OnWindowClosed(Core::WindowClosedEvent& event);
+
+};

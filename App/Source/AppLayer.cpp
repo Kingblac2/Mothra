@@ -1,7 +1,7 @@
 #include "AppLayer.h"
 
 #include "VoidLayer.h"
-
+#include "MothraCore.h"
 #include "Core/Application.h"
 
 #include "Core/Renderer/Renderer.h"
@@ -77,6 +77,10 @@ void AppLayer::OnUpdate(float ts)
 	if (glfwGetKey(Core::Application::Get().GetWindow()->GetHandle(), GLFW_KEY_1) == GLFW_PRESS)
 	{
 		TransitionTo<VoidLayer>();
+	}
+	 if (glfwGetKey(Core::Application::Get().GetWindow()->GetHandle(), GLFW_KEY_3) == GLFW_PRESS)
+	{
+		TransitionTo<MothraLayer>();
 	}
 }
 

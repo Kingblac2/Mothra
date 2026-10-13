@@ -12,7 +12,7 @@
 
 namespace Core {
 
-	static Application* s_Application = nullptr;
+	static  Application* s_Application = nullptr;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
