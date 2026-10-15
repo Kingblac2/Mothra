@@ -22,10 +22,9 @@ namespace Core {
 
 	void Window::Create()
 	{
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+		glfwWindowHint(GLFW_CLIENT_API,GLFW_NO_API);
+
+
 
 		m_Handle = glfwCreateWindow(m_Specification.Width, m_Specification.Height,
 			m_Specification.Title.c_str(), nullptr, nullptr);
@@ -36,10 +35,10 @@ namespace Core {
 			assert(false);
 		}
 
-		glfwMakeContextCurrent(m_Handle);
-		gladLoadGL(glfwGetProcAddress);
+	//	glfwMakeContextCurrent(m_Handle);
+//		gladLoadGL(glfwGetProcAddress);
 
-		glfwSwapInterval(m_Specification.VSync ? 1 : 0);
+	//	glfwSwapInterval(m_Specification.VSync ? 1 : 0);
 
 		glfwSetWindowUserPointer(m_Handle, this);
 
@@ -129,7 +128,7 @@ namespace Core {
 
 	void Window::Update()
 	{
-		glfwSwapBuffers(m_Handle);
+		//glfwSwapBuffers(m_Handle);
 	}
 
 	void Window::RaiseEvent(Event& event)

@@ -1,4 +1,5 @@
 #include "DebugCallback.h"
+#include "Logging.h"
 
 bool VulkanDebug::Setup(
     vk::Instance instance,
@@ -71,17 +72,32 @@ VKAPI_ATTR VkBool32 VKAPI_CALL VulkanDebug::DebugCallback(
     const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
     void* /*pUserData*/)
 {
-    if (messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT)
-        std::cerr << "[Vulkan Error] ";
-    else if (messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT)
-        std::cerr << "[Vulkan Warning] ";
-    else
-        std::cerr << "[Vulkan Info] ";
+    if (!pCallbackData || !pCallbackData->pMessage)
+        return VK_FALSE;
 
-    if (pCallbackData && pCallbackData->pMessage)
-        std::cerr << pCallbackData->pMessage;
+    switch (messageSeverity)
+    {
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+        VK_LOG_TRACE("[Validation] {}", pCallbackData->pMessage);
+        break;
 
-    std::cerr << '\n';
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+        VK_LOG_INFO("[Validation] {}", pCallbackData->pMessage);
+        break;
+
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+        VK_LOG_WARN("[Validation] {}", pCallbackData->pMessage);
+        break;
+
+    case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+        VK_LOG_ERROR("[Validation] {}", pCallbackData->pMessage);
+        break;
+
+    default:
+        VK_LOG_INFO("[Validation] {}", pCallbackData->pMessage);
+        break;
+    }
 
     return VK_FALSE;
+
 }

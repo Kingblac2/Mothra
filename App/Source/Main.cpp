@@ -12,8 +12,8 @@ int main()
 	appSpec.WindowSpec.Height = 1080;
 
 	Core::Application application(appSpec);
-	application.PushLayer<AppLayer>();
-	application.PushLayer<OverlayLayer>();
+	//application.PushLayer<AppLayer>();
+	//application.PushLayer<OverlayLayer>();
 	application.PushLayer<MothraLayer>();
 	application.Run();
 }
