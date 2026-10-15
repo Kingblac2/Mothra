@@ -3,9 +3,11 @@ add_library(Mothra-Core STATIC)
 set(SOURCES
     Include/MothraCore.h
     Include/Device.h
+    Include/DebugCallback.h
 
     Source/MothraCore.cpp
     Source/Device.cpp
+    Source/DebugCallback.cpp
 )
 
 

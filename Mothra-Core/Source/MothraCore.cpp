@@ -5,6 +5,10 @@
 MothraLayer::MothraLayer()
 {
 
+	Instance instance;
+	vk::Instance Instance = instance.CreateInstance();
+	dldi = vk::detail::DispatchLoaderDynamic(Instance, vkGetInstanceProcAddr);
+	debug.Setup(Instance, dldi);
 }
 
 
@@ -19,8 +23,6 @@ void MothraLayer::OnUpdate(float ts)
 
 void MothraLayer::OnRender()
 {
-	Instance instance;
-	vk::Instance Instance = instance.CreateInstance();
 }
 
 MothraLayer::~MothraLayer()

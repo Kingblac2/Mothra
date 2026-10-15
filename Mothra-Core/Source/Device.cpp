@@ -127,7 +127,8 @@ vk::Instance Instance::CreateInstance()
     // Change VK_MAKE_API_VERSION to VK_MAKE_API_VERSION(0,1,0,0) if some problem occurs
     version = VK_MAKE_API_VERSION(0, 1, 1, 0);
 
-    vk::ApplicationInfo appInfo = vk::ApplicationInfo(Core::Application().Get().GetSpecification()->Name.c_str(), version, "Mothra", version, version);
+    auto appSpec = Core::Application::Get().GetSpecification();
+    vk::ApplicationInfo appInfo = vk::ApplicationInfo(appSpec->Name.c_str(), version, "Mothra", version, version);
 
     auto extensions = GLFWGetRequiredExtension();
 

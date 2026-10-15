@@ -4,6 +4,8 @@
 #include <Core/InputEvents.h>
 #include <Core/WindowEvents.h>
 
+#include<vulkan/vulkan.hpp>
+#include"DebugCallback.h"
 
 class MothraLayer : public Core::Layer
 {
@@ -20,4 +22,7 @@ private:
 	bool OnMouseMoved(Core::MouseMovedEvent& event);
 	bool OnWindowClosed(Core::WindowClosedEvent& event);
 
+private:
+	vk::detail::DispatchLoaderDynamic dldi;
+	VulkanDebug debug;
 };
